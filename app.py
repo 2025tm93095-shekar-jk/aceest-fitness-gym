@@ -7,9 +7,9 @@ app = Flask(__name__)
 
 DB_PATH = os.environ.get("ACEEST_DB", "aceest_fitness.db")
 
-
 def init_db():
     with sqlite3.connect(DB_PATH) as conn:
+        # Client profiles
         conn.execute("""
             CREATE TABLE IF NOT EXISTS clients (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,6 +19,16 @@ def init_db():
                 weight REAL,
                 program TEXT,
                 calories INTEGER
+            )
+        """)
+
+        # Weekly progress tracking
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS progress (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                client_name TEXT NOT NULL,
+                week TEXT NOT NULL,
+                adherence INTEGER NOT NULL
             )
         """)
 
@@ -106,6 +116,41 @@ def create_client():
         weight=weight,
         program=program,
         calories=calories
+    ), 201
+
+@app.route("/clients/<name>/progress", methods=["POST"])
+def save_progress(name):
+    data = request.get_json(silent=True) or {}
+
+    week = data.get("week")
+    adherence = data.get("adherence")
+
+    if not isinstance(week, str) or not week.strip():
+        return jsonify(error="Valid week is required"), 400
+
+    if type(adherence) is not int or not 0 <= adherence <= 100:
+        return jsonify(error="Adherence must be between 0 and 100"), 400
+
+    with sqlite3.connect(DB_PATH) as conn:
+        client = conn.execute(
+            "SELECT id FROM clients WHERE name = ?", (name,)
+        ).fetchone()
+
+        if client is None:
+            return jsonify(error="Client not found"), 404
+
+        conn.execute(
+            """
+            INSERT INTO progress (client_name, week, adherence)
+            VALUES (?, ?, ?)
+            """,
+            (name, week.strip(), adherence)
+        )
+
+    return jsonify(
+        client_name=name,
+        week=week.strip(),
+        adherence=adherence
     ), 201
 
 if __name__ == "__main__":
