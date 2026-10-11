@@ -1,0 +1,35 @@
+[s2025tm93095@ip-10-3-25-8 ~]$ cd workspace/Assignment/aceest-fitness-gym/
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ nano Jenkinsfile
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	Jenkinsfile
+	screenshots/
+	terminal_commands/
+
+nothing added to commit but untracked files present (use "git add" to track)
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ git add Jenkinsfile 
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ git commit -m "Add jenkins pipeline script with Pytest and Docker validation"
+[main 7679984] Add jenkins pipeline script with Pytest and Docker validation
+ 1 file changed, 76 insertions(+)
+ create mode 100644 Jenkinsfile
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ git push origin main
+error: unable to read askpass response from '/usr/libexec/openssh/gnome-ssh-askpass'
+Username for 'https://github.com': 2025tm93095-shekar-jk
+error: unable to read askpass response from '/usr/libexec/openssh/gnome-ssh-askpass'
+Password for 'https://2025tm93095-shekar-jk@github.com': 
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 734 bytes | 244.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/2025tm93095-shekar-jk/aceest-fitness-gym.git
+   442f704..7679984  main -> main
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ cd terminal_commands/
+[s2025tm93095@ip-10-3-25-8 terminal_commands]$ nano jenkins_console_output.txt
+[s2025tm93095@ip-10-3-25-8 terminal_commands]$ 

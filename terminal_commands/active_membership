@@ -1,0 +1,19 @@
+[s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ curl -X PUT http://127.0.0.1:5000/clients/Test%20Client/membership \
+  -H "Content-Type: application/json" \
+  -d '{"membership_expiry":"2026-12-31"}'
+{
+  "client_name": "Test Client",
+  "membership_expiry": "2026-12-31",
+  "status": "Active"
+}
+[s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ curl http://127.0.0.1:5000/clients/Test%20Client/membership
+^Z
+[1]+  Stopped                 curl http://127.0.0.1:5000/clients/Test%20Client/membership
+[s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ curl http://127.0.0.1:5000/clients/Test%20Client/membership
+{
+  "client_name": "Test Client",
+  "membership_expiry": "2026-12-31",
+  "status": "Active"
+}
+[1]+  Killed                  curl http://127.0.0.1:5000/clients/Test%20Client/membership
+[s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ 

@@ -1,0 +1,49 @@
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ mkdir -p tests
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ touch tests/__init__.py
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ nano te
+terminal_commands/ tests/             
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ nano tests/test_app.py
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ pythom -m pytest -v
+bash: pythom: command not found
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ python -m pytest -v
+===================================================== test session starts ======================================================
+platform linux -- Python 3.9.21, pytest-8.4.2, pluggy-1.6.0 -- /home/s2025tm93095/workspace/Assignment/aceest-fitness-gym/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/s2025tm93095/workspace/Assignment/aceest-fitness-gym
+collected 4 items                                                                                                              
+
+tests/test_app.py::test_home FAILED                                                                                      [ 25%]
+tests/test_app.py::test_list_programs PASSED                                                                             [ 50%]
+tests/test_app.py::test_invalid_program PASSED                                                                           [ 75%]
+tests/test_app.py::test_create_client PASSED                                                                             [100%]
+
+=========================================================== FAILURES ===========================================================
+__________________________________________________________ test_home ___________________________________________________________
+
+client = <FlaskClient <Flask 'app'>>
+
+    def test_home(client):
+        response = client.get("/")
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+
+tests/test_app.py:18: AssertionError
+=================================================== short test summary info ====================================================
+FAILED tests/test_app.py::test_home - assert 404 == 200
+================================================= 1 failed, 3 passed in 0.84s ==================================================
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ nano app.py
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ python -m pytest -v
+===================================================== test session starts ======================================================
+platform linux -- Python 3.9.21, pytest-8.4.2, pluggy-1.6.0 -- /home/s2025tm93095/workspace/Assignment/aceest-fitness-gym/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/s2025tm93095/workspace/Assignment/aceest-fitness-gym
+collected 4 items                                                                                                              
+
+tests/test_app.py::test_home PASSED                                                                                      [ 25%]
+tests/test_app.py::test_list_programs PASSED                                                                             [ 50%]
+tests/test_app.py::test_invalid_program PASSED                                                                           [ 75%]
+tests/test_app.py::test_create_client PASSED                                                                             [100%]
+
+====================================================== 4 passed in 0.60s =======================================================
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ 

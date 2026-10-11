@@ -1,0 +1,19 @@
+[s2025tm93095@ip-10-3-21-43 aceest-fitness-gym]$ curl -X POST http://127.0.0.1:5000/clients \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Test Client","age":25,"weight":80,"program":"fat_loss"}'
+{
+  "age": 25,
+  "calories": 1760,
+  "name": "Test Client",
+  "program": "fat_loss",
+  "weight": 80.0
+}
+[s2025tm93095@ip-10-3-21-43 aceest-fitness-gym]$ curl -X POST http://127.0.0.1:5000/clients/Test%20Client/progress \
+  -H "Content-Type: application/json" \
+  -d '{"week":"2026-W41","adherence":85}'
+{
+  "adherence": 85,
+  "client_name": "Test Client",
+  "week": "2026-W41"
+}
+[s2025tm93095@ip-10-3-21-43 aceest-fitness-gym]$ 

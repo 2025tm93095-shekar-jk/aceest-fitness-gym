@@ -1,0 +1,77 @@
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ nano app.py 
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ nano app.py 
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ mkdir -p templates static
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ touch templates/index.html static/style.css
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ nano te
+templates/         terminal_commands/ tests/             
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ nano templates/index.html 
+[s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ source venv/bin/activate
+(venv) [s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ python app.py 
+ * Serving Flask app 'app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.3.25.8:5000
+Press CTRL+C to quit
+127.0.0.1 - - [11/Oct/2026 17:09:23] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 17:09:23] "GET /static/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 17:09:23] "GET /favicon.ico HTTP/1.1" 404 -
+^C(venv) [s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ ^C
+(venv) [s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ nano app.py 
+(venv) [s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ nano templates/index.html 
+(venv) [s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ python app.py 
+ * Serving Flask app 'app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.3.25.8:5000
+Press CTRL+C to quit
+127.0.0.1 - - [11/Oct/2026 17:11:23] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 17:11:23] "GET /static/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 17:11:23] "GET /programs HTTP/1.1" 200 -
+^C(venv) [s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ nano static/style.css 
+(venv) [s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ python app.py 
+ * Serving Flask app 'app'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.3.25.8:5000
+Press CTRL+C to quit
+127.0.0.1 - - [11/Oct/2026 17:12:35] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 17:12:35] "GET /static/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [11/Oct/2026 17:12:35] "GET /programs HTTP/1.1" 200 -
+^C(venv) [s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ python -m pytest -v
+===================================================== test session starts ======================================================
+platform linux -- Python 3.9.21, pytest-8.4.2, pluggy-1.6.0 -- /home/s2025tm93095/workspace/Assignment/aceest-fitness-gym/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/s2025tm93095/workspace/Assignment/aceest-fitness-gym
+collected 22 items                                                                                                             
+
+tests/test_app.py::test_home PASSED                                                                                      [  4%]
+tests/test_app.py::test_list_programs PASSED                                                                             [  9%]
+tests/test_app.py::test_get_valid_program PASSED                                                                         [ 13%]
+tests/test_app.py::test_get_invalid_program PASSED                                                                       [ 18%]
+tests/test_app.py::test_create_client PASSED                                                                             [ 22%]
+tests/test_app.py::test_duplicate_client PASSED                                                                          [ 27%]
+tests/test_app.py::test_invalid_client_name PASSED                                                                       [ 31%]
+tests/test_app.py::test_invalid_client_program PASSED                                                                    [ 36%]
+tests/test_app.py::test_invalid_client_weight PASSED                                                                     [ 40%]
+tests/test_app.py::test_save_progress PASSED                                                                             [ 45%]
+tests/test_app.py::test_invalid_adherence PASSED                                                                         [ 50%]
+tests/test_app.py::test_progress_unknown_client PASSED                                                                   [ 54%]
+tests/test_app.py::test_add_workout PASSED                                                                               [ 59%]
+tests/test_app.py::test_invalid_workout_date PASSED                                                                      [ 63%]
+tests/test_app.py::test_invalid_workout_duration PASSED                                                                  [ 68%]
+tests/test_app.py::test_workout_unknown_client PASSED                                                                    [ 72%]
+tests/test_app.py::test_update_membership PASSED                                                                         [ 77%]
+tests/test_app.py::test_get_membership PASSED                                                                            [ 81%]
+tests/test_app.py::test_expired_membership PASSED                                                                        [ 86%]
+tests/test_app.py::test_invalid_membership_date PASSED                                                                   [ 90%]
+tests/test_app.py::test_membership_unknown_client PASSED                                                                 [ 95%]
+tests/test_app.py::test_dashboard PASSED                                                                                 [100%]
+
+====================================================== 22 passed in 1.18s ======================================================
+(venv) [s2025tm93095@ip-10-3-25-8 aceest-fitness-gym]$ 

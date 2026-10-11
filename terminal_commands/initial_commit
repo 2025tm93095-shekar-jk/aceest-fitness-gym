@@ -1,0 +1,131 @@
+[s2025tm93095@ip-10-3-18-221 ~]$ cd workspace/Assignment/
+[s2025tm93095@ip-10-3-18-221 Assignment]$ ls
+[s2025tm93095@ip-10-3-18-221 Assignment]$ mkdir aceest-fitness-gym
+[s2025tm93095@ip-10-3-18-221 Assignment]$ cd aceest-fitness-gym/
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /home/s2025tm93095/workspace/Assignment/aceest-fitness-gym/.git/
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ git config user.name "2025tm93095-shekar-jk"
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ git config user.email "2025tm93095@wilp.bits-pilani.ac.in"
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ python3 -m venv venv
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ pip install flask pytest
+bash: pip: command not found
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ pi
+pic              pidwait          pinentry-curses  ping             pipewire         pipewire-pulse   
+piconv           pigz             pinentry-gnome3  ping6            pipewire-aes67   pipewire-vulkan  
+pidof            pinentry         pinfo            pinky            pipewire-avb     pivot_root       
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ pi
+pic              pidwait          pinentry-curses  ping             pipewire         pipewire-pulse   
+piconv           pigz             pinentry-gnome3  ping6            pipewire-aes67   pipewire-vulkan  
+pidof            pinentry         pinfo            pinky            pipewire-avb     pivot_root       
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ pip
+bash: pip: command not found
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ which python
+/bin/python
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ which python3
+/bin/python3
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ echo $VIRTUAL_ENV
+
+[s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ source venv/bin/activate
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ source venv/bin/activate
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ pip install flask pytest
+Collecting flask
+  Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+     |████████████████████████████████| 103 kB 9.3 MB/s            
+Collecting pytest
+  Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+     |████████████████████████████████| 365 kB 38.9 MB/s            
+Collecting werkzeug>=3.1.0
+  Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+     |████████████████████████████████| 228 kB 53.7 MB/s            
+Collecting click>=8.1.3
+  Downloading click-8.1.8-py3-none-any.whl (98 kB)
+     |████████████████████████████████| 98 kB 13.8 MB/s            
+Collecting itsdangerous>=2.2.0
+  Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Collecting blinker>=1.9.0
+  Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Collecting markupsafe>=2.1.1
+  Downloading markupsafe-3.0.4-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (20 kB)
+Collecting jinja2>=3.1.2
+  Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+     |████████████████████████████████| 134 kB 53.9 MB/s            
+Collecting importlib-metadata>=3.6.0
+  Downloading importlib_metadata-8.7.1-py3-none-any.whl (27 kB)
+Collecting tomli>=1
+  Downloading tomli-2.5.0-py3-none-any.whl (14 kB)
+Collecting pluggy<2,>=1.5
+  Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Collecting exceptiongroup>=1
+  Downloading exceptiongroup-1.3.1-py3-none-any.whl (16 kB)
+Collecting iniconfig>=1
+  Downloading iniconfig-2.1.0-py3-none-any.whl (6.0 kB)
+Collecting packaging>=20
+  Downloading packaging-26.3-py3-none-any.whl (129 kB)
+     |████████████████████████████████| 129 kB 40.0 MB/s            
+Collecting pygments>=2.7.2
+  Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+     |████████████████████████████████| 1.3 MB 50.3 MB/s            
+Collecting typing-extensions>=4.6.0
+  Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+     |████████████████████████████████| 45 kB 5.6 MB/s             
+Collecting zipp>=3.20
+  Downloading zipp-3.23.1-py3-none-any.whl (10 kB)
+Installing collected packages: zipp, typing-extensions, markupsafe, werkzeug, tomli, pygments, pluggy, packaging, jinja2, itsdangerous, iniconfig, importlib-metadata, exceptiongroup, click, blinker, pytest, flask
+Successfully installed blinker-1.9.0 click-8.1.8 exceptiongroup-1.3.1 flask-3.1.3 importlib-metadata-8.7.1 iniconfig-2.1.0 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 packaging-26.3 pluggy-1.6.0 pygments-2.21.0 pytest-8.4.2 tomli-2.5.0 typing-extensions-4.16.0 werkzeug-3.1.9 zipp-3.23.1
+WARNING: You are using pip version 21.3.1; however, version 26.0.1 is available.
+You should consider upgrading via the '/home/s2025tm93095/workspace/Assignment/aceest-fitness-gym/venv/bin/python3 -m pip install --upgrade pip' command.
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	venv/
+
+nothing added to commit but untracked files present (use "git add" to track)
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ nano requirements.txt
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ nano .gitignore
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.gitignore
+	requirements.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ git add .gitignore requirements.txt 
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ git commit -m "Initial commit with gitignore and requirements.txt"
+[master (root-commit) 1e2f4d3] Initial commit with gitignore and requirements.txt
+ 2 files changed, 7 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 requirements.txt
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ git remote add origin https://github.com/2025tm93095-shekar-jk/aceest-fitness-gym.git
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ git branch -M main
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ git push origin main 
+error: unable to read askpass response from '/usr/libexec/openssh/gnome-ssh-askpass'
+Username for 'https://github.com': 2025tm93095-shekar-jk
+error: unable to read askpass response from '/usr/libexec/openssh/gnome-ssh-askpass'
+Password for 'https://2025tm93095-shekar-jk@github.com': 
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (4/4), 369 bytes | 28.00 KiB/s, done.
+Total 4 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/2025tm93095-shekar-jk/aceest-fitness-gym.git
+ * [new branch]      main -> main
+(venv) [s2025tm93095@ip-10-3-18-221 aceest-fitness-gym]$ 

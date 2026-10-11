@@ -1,0 +1,91 @@
+[s2025tm93095@ip-10-3-21-176 ~]$ C
+bash: C: command not found
+[s2025tm93095@ip-10-3-21-176 ~]$ CD
+bash: CD: command not found
+[s2025tm93095@ip-10-3-21-176 ~]$ cd workspace/Assignment/aceest-fitness-gym/
+[s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   app.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	db_initilatization.png
+	screenshots/
+	terminal_commands/
+
+[s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ git commit -m "Added workout session logging"
+[main a9bbd9e] Added workout session logging
+ 1 file changed, 66 insertions(+)
+[s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ git push origin main
+error: unable to read askpass response from '/usr/libexec/openssh/gnome-ssh-askpass'
+Username for 'https://github.com': 2025tm93095-shekar-jk
+error: unable to read askpass response from '/usr/libexec/openssh/gnome-ssh-askpass'
+Password for 'https://2025tm93095-shekar-jk@github.com': 
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 877 bytes | 219.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/2025tm93095-shekar-jk/aceest-fitness-gym.git
+   2e50aa6..a9bbd9e  main -> main
+[s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ nano app.py 
+[s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ python -c "from app import init_db; init_db(); print('Membership database updated successfully')"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/home/s2025tm93095/workspace/Assignment/aceest-fitness-gym/app.py", line 1, in <module>
+    from flask import Flask, jsonify, request
+ModuleNotFoundError: No module named 'flask'
+[s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ source venv/bin/activate
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ python -c "from app import init_db; init_db(); print('Membership database updated successfully')"
+Membership database updated successfully
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ nano app.py 
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ python app.py 
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.3.21.176:5000
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 103-106-255
+127.0.0.1 - - [11/Oct/2026 13:40:58] "PUT /clients/Test%20Client/membership HTTP/1.1" 200 -
+
+
+^Z
+[1]+  Stopped                 python app.py
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ python app.py 
+ * Serving Flask app 'app'
+ * Debug mode: on
+Address already in use
+Port 5000 is in use by another program. Either identify and stop that program, or start the server with a different port.
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ lsof -i :5000
+COMMAND  PID         USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+python  6595 s2025tm93095    5u  IPv4  41267      0t0  TCP *:commplex-main (LISTEN)
+python  6596 s2025tm93095    5u  IPv4  41267      0t0  TCP *:commplex-main (LISTEN)
+python  6596 s2025tm93095    6u  IPv4  41267      0t0  TCP *:commplex-main (LISTEN)
+curl    6657 s2025tm93095    5u  IPv4  41339      0t0  TCP localhost:38266->localhost:commplex-main (ESTABLISHED)
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ kill -9 6657 6595 6596
+[1]+  Killed                  python app.py
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ python app.py 
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.3.21.176:5000
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 103-106-255
+127.0.0.1 - - [11/Oct/2026 13:43:04] "GET /clients/Test%20Client/membership HTTP/1.1" 200 -
+^Z
+[1]+  Stopped                 python app.py
+(venv) [s2025tm93095@ip-10-3-21-176 aceest-fitness-gym]$ 
