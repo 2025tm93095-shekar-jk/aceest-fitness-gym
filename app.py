@@ -5,6 +5,10 @@ import sqlite3
 
 app = Flask(__name__)
 
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify(message="Welcome to ACEest Fitness & Gym"), 200
+
 DB_PATH = os.environ.get("ACEEST_DB", "aceest_fitness.db")
 
 def init_db():
