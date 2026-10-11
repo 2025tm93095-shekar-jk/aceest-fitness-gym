@@ -44,6 +44,17 @@ def init_db():
             )
         """)
 
+        # Add membership expiry to existing client records
+        columns = [
+            row[1]
+            for row in conn.execute("PRAGMA table_info(clients)")
+        ]
+
+        if "membership_expiry" not in columns:
+            conn.execute(
+                "ALTER TABLE clients ADD COLUMN membership_expiry TEXT"
+            )
+
 PROGRAMS = {
     "fat_loss": {
         "name": "Fat Loss (FL)",
@@ -218,6 +229,47 @@ def add_workout():
         duration_min=duration,
         notes=notes
     ), 201
+
+from datetime import date
+
+@app.route("/clients/<name>/membership", methods=["PUT", "GET"])
+def membership(name):
+    with sqlite3.connect(DB_PATH) as conn:
+        conn.row_factory = sqlite3.Row
+
+        client = conn.execute(
+            "SELECT * FROM clients WHERE name = ?", (name,)
+        ).fetchone()
+
+        if client is None:
+            return jsonify(error="Client not found"), 404
+
+        if request.method == "PUT":
+            data = request.get_json(silent=True) or {}
+            expiry = data.get("membership_expiry")
+
+            try:
+                date.fromisoformat(expiry)
+            except (ValueError, TypeError):
+                return jsonify(error="Use YYYY-MM-DD date format"), 400
+
+            conn.execute(
+                "UPDATE clients SET membership_expiry = ? WHERE name = ?",
+                (expiry, name)
+            )
+        else:
+            expiry = client["membership_expiry"]
+
+    status = (
+        "Active" if expiry and date.fromisoformat(expiry) >= date.today()
+        else "Expired" if expiry else "Not Set"
+    )
+
+    return jsonify(
+        client_name=name,
+        membership_expiry=expiry,
+        status=status
+    ), 200
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
