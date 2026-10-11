@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACEest Fitness & Gym</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>ACEest Fitness & Gym</h1>
+        <p>Fitness Management Dashboard</p>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Fitness Programs</h2>
+            <div id="programs">Loading programs...</div>
+        </section>
+
+        <section class="card">
+            <h2>Client Registration</h2>
+            <form id="clientForm">
+                <input name="name" placeholder="Client Name" required>
+                <input name="age" type="number" min="1"
+                       placeholder="Age" required>
+                <input name="weight" type="number" min="0.1"
+                       step="0.1" placeholder="Weight (kg)" required>
+                <select name="program" required>
+                    <option value="">Select Program</option>
+                    <option value="fat_loss">Fat Loss</option>
+                    <option value="muscle_gain">Muscle Gain</option>
+                    <option value="beginner">Beginner</option>
+                </select>
+                <button type="submit">Register Client</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Workout Logging</h2>
+            <form id="workoutForm">
+                <input name="client_name" placeholder="Client Name" required>
+                <input name="date" type="date" required>
+                <input name="workout_type"
+                       placeholder="Workout Type" required>
+                <input name="duration_min" type="number" min="1"
+                       placeholder="Duration (minutes)" required>
+                <input name="notes" placeholder="Notes (optional)">
+                <button type="submit">Save Workout</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Weekly Progress</h2>
+            <form id="progressForm">
+                <input name="client_name" placeholder="Client Name" required>
+                <input name="week" placeholder="Week (e.g. 2026-W41)"
+                       required>
+                <input name="adherence" type="number" min="0" max="100"
+                       placeholder="Adherence (%)" required>
+                <button type="submit">Save Progress</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Membership Tracking</h2>
+            <form id="membershipForm">
+                <input name="client_name" placeholder="Client Name" required>
+                <input name="membership_expiry" type="date" required>
+                <button type="submit">Update Membership</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Activity Results</h2>
+            <pre id="result" role="status" aria-live="polite">
+Ready to manage your fitness clients.
+            </pre>
+        </section>
+    </main>
+
+    <script>
+        const result = document.getElementById("result");
+
+        async function sendRequest(url, method, data) {
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(data)
+                });
+
+                const body = await response.json();
+                result.textContent = JSON.stringify(body, null, 2);
+
+                if (!response.ok) {
+                    result.textContent =
+                        "Request failed:\n" + result.textContent;
+                }
+            } catch (error) {
+                result.textContent = "Error: " + error.message;
+            }
+        }
+
+        function formData(form) {
+            return Object.fromEntries(new FormData(form).entries());
+        }
+
+        document.getElementById("clientForm")
+            .addEventListener("submit", function(event) {
+                event.preventDefault();
+                const data = formData(this);
+                data.age = Number(data.age);
+                data.weight = Number(data.weight);
+                sendRequest("/clients", "POST", data);
+            });
+
+        document.getElementById("workoutForm")
+            .addEventListener("submit", function(event) {
+                event.preventDefault();
+                const data = formData(this);
+                data.duration_min = Number(data.duration_min);
+                sendRequest("/workouts", "POST", data);
+            });
+
+        document.getElementById("progressForm")
+            .addEventListener("submit", function(event) {
+                event.preventDefault();
+                const data = formData(this);
+                data.adherence = Number(data.adherence);
+                const name = encodeURIComponent(data.client_name);
+                delete data.client_name;
+
+                sendRequest(
+                    `/clients/${name}/progress`, "POST", data
+                );
+            });
+
+        document.getElementById("membershipForm")
+            .addEventListener("submit", function(event) {
+                event.preventDefault();
+                const data = formData(this);
+                const name = encodeURIComponent(data.client_name);
+                delete data.client_name;
+
+                sendRequest(
+                    `/clients/${name}/membership`, "PUT", data
+                );
+            });
+
+        fetch("/programs")
+            .then(response => response.json())
+            .then(programs => {
+                const container = document.getElementById("programs");
+                container.replaceChildren();
+
+                Object.values(programs).forEach(program => {
+                    const card = document.createElement("div");
+                    card.className = "program";
+                    const title = document.createElement("h3");
+                    title.textContent = program.name;
+                    const workout = document.createElement("p");
+                    workout.textContent = program.workout;
+                    const diet = document.createElement("p");
+                    diet.textContent = "Diet: " + program.diet;
+                    card.append(title, workout, diet);
+                    container.appendChild(card);
+                });
+            })
+            .catch(() => {
+                document.getElementById("programs")
+                    .textContent = "Unable to load programs.";
+            });
+    </script>
+</body>
+</html>

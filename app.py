@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 
 import os
 import sqlite3
@@ -274,6 +274,10 @@ def membership(name):
         membership_expiry=expiry,
         status=status
     ), 200
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("index.html")
 
 if __name__ == "__main__":
     init_db()

@@ -10,6 +10,10 @@ COPY app.py .
 
 COPY tests/ ./tests/
 
+COPY templates/ ./templates/
+
+COPY static/ ./static/
+
 EXPOSE 5000
 
 CMD ["python", "app.py"]

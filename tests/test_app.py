@@ -261,3 +261,11 @@ def test_invalid_membership_date(client):
 def test_membership_unknown_client(client):
     response = client.get("/clients/Unknown/membership")
     assert response.status_code == 404
+
+def test_dashboard(client):
+    response = client.get("/dashboard")
+
+    assert response.status_code == 200
+    assert b"ACEest Fitness & Gym" in response.data
+    assert b"Client Registration" in response.data
+    assert b"Workout Logging" in response.data
