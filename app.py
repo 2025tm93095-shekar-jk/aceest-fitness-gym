@@ -32,6 +32,18 @@ def init_db():
             )
         """)
 
+        # Workout session logging
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS workouts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                client_name TEXT NOT NULL,
+                date TEXT NOT NULL,
+                workout_type TEXT NOT NULL,
+                duration_min INTEGER NOT NULL,
+                notes TEXT
+            )
+        """)
+
 PROGRAMS = {
     "fat_loss": {
         "name": "Fat Loss (FL)",
@@ -151,6 +163,60 @@ def save_progress(name):
         client_name=name,
         week=week.strip(),
         adherence=adherence
+    ), 201
+
+@app.route("/workouts", methods=["POST"])
+def add_workout():
+    data = request.get_json(silent=True) or {}
+
+    name = data.get("client_name")
+    workout_date = data.get("date")
+    workout_type = data.get("workout_type")
+    duration = data.get("duration_min")
+    notes = data.get("notes", "")
+
+    if not all(isinstance(x, str) and x.strip()
+               for x in [name, workout_date, workout_type]):
+        return jsonify(error="Client, date and workout type are required"), 400
+
+    try:
+        from datetime import date
+        date.fromisoformat(workout_date)
+    except ValueError:
+        return jsonify(error="Date must be YYYY-MM-DD"), 400
+
+    if type(duration) is not int or duration <= 0:
+        return jsonify(error="Duration must be a positive integer"), 400
+
+    if not isinstance(notes, str):
+        return jsonify(error="Notes must be text"), 400
+
+    with sqlite3.connect(DB_PATH) as conn:
+        client = conn.execute(
+            "SELECT id FROM clients WHERE name = ?", (name,)
+        ).fetchone()
+
+        if client is None:
+            return jsonify(error="Client not found"), 404
+
+        cursor = conn.execute(
+            """
+            INSERT INTO workouts
+            (client_name, date, workout_type, duration_min, notes)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (name, workout_date, workout_type, duration, notes)
+        )
+
+        workout_id = cursor.lastrowid
+
+    return jsonify(
+        id=workout_id,
+        client_name=name,
+        date=workout_date,
+        workout_type=workout_type,
+        duration_min=duration,
+        notes=notes
     ), 201
 
 if __name__ == "__main__":
