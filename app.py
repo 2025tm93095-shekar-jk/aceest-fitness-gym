@@ -1,6 +1,26 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+
+import os
+import sqlite3
 
 app = Flask(__name__)
+
+DB_PATH = os.environ.get("ACEEST_DB", "aceest_fitness.db")
+
+
+def init_db():
+    with sqlite3.connect(DB_PATH) as conn:
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS clients (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT UNIQUE NOT NULL,
+                age INTEGER,
+                height REAL,
+                weight REAL,
+                program TEXT,
+                calories INTEGER
+            )
+        """)
 
 PROGRAMS = {
     "fat_loss": {
@@ -43,6 +63,50 @@ def get_program(program_id):
 
     return jsonify(program), 200
 
+@app.route("/clients", methods=["POST"])
+def create_client():
+    data = request.get_json(silent=True) or {}
+
+    name = data.get("name")
+    age = data.get("age")
+    weight = data.get("weight")
+    program = data.get("program")
+
+    if not isinstance(name, str) or not name.strip():
+        return jsonify(error="Client name is required"), 400
+
+    if program not in PROGRAMS:
+        return jsonify(error="Invalid fitness program"), 400
+
+    try:
+        age = int(age)
+        weight = float(weight)
+        if age <= 0 or weight <= 0:
+            raise ValueError
+    except (ValueError, TypeError):
+        return jsonify(error="Valid age and weight are required"), 400
+
+    calories = int(weight * PROGRAMS[program]["calorie_factor"])
+
+    with sqlite3.connect(DB_PATH) as conn:
+        try:
+            conn.execute(
+                """
+                INSERT INTO clients (name, age, weight, program, calories)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (name.strip(), age, weight, program, calories)
+            )
+        except sqlite3.IntegrityError:
+            return jsonify(error="Client already exists"), 409
+
+    return jsonify(
+        name=name.strip(),
+        age=age,
+        weight=weight,
+        program=program,
+        calories=calories
+    ), 201
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
