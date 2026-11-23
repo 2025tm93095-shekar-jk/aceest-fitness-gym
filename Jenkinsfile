@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        SONAR_HOST_URL = 'http://10.3.25.142:9000'
+        SONAR_HOST_URL = 'http://10.3.19.52:9000'
     }
 
     stages {
