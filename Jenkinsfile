@@ -89,6 +89,18 @@ pipeline {
         }
     }
 
+        stage('Deploy to Minikube') {
+            steps {
+                echo 'Deploying ACEest to Kubernetes'
+
+                sh '''
+                    kubectl apply -f k8s/deployment-v1.yaml
+                    kubectl apply -f k8s/service.yaml
+                    kubectl rollout status deployment/aceest-v1 --timeout=120s
+                '''
+            }
+        }
+
     post {
         success {
             echo 'ACEest pipeline completed successfully!'
