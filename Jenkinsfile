@@ -100,6 +100,7 @@ pipeline {
                 '''
             }
         }
+    }
 
     post {
         success {
