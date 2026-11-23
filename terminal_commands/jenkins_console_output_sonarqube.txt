@@ -1,0 +1,416 @@
+Started by user cloud
+
+Obtained Jenkinsfile from git https://github.com/2025tm93095-shekar-jk/aceest-fitness-gym
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins
+ in /var/lib/jenkins/workspace/ACEest Fitness and Gym - SonarQube
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/ACEest Fitness and Gym - SonarQube/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/2025tm93095-shekar-jk/aceest-fitness-gym # timeout=10
+Fetching upstream changes from https://github.com/2025tm93095-shekar-jk/aceest-fitness-gym
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.5'
+ > git fetch --tags --force --progress -- https://github.com/2025tm93095-shekar-jk/aceest-fitness-gym +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/assignment-2^{commit} # timeout=10
+Checking out Revision dd3af72a8539c48a4477cf8e0af05a5a0d1b5671 (refs/remotes/origin/assignment-2)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f dd3af72a8539c48a4477cf8e0af05a5a0d1b5671 # timeout=10
+Commit message: "Updated the Jenkinsfile"
+ > git rev-list --no-walk dd3af72a8539c48a4477cf8e0af05a5a0d1b5671 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/ACEest Fitness and Gym - SonarQube/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/2025tm93095-shekar-jk/aceest-fitness-gym # timeout=10
+Fetching upstream changes from https://github.com/2025tm93095-shekar-jk/aceest-fitness-gym
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.5'
+ > git fetch --tags --force --progress -- https://github.com/2025tm93095-shekar-jk/aceest-fitness-gym +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/assignment-2^{commit} # timeout=10
+Checking out Revision dd3af72a8539c48a4477cf8e0af05a5a0d1b5671 (refs/remotes/origin/assignment-2)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f dd3af72a8539c48a4477cf8e0af05a5a0d1b5671 # timeout=10
+Commit message: "Updated the Jenkinsfile"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+Installing Python dependencies
+[Pipeline] sh
++ python3 -m venv .venv
++ .venv/bin/pip install -r requirements.txt
+Requirement already satisfied: Flask==3.0.3 in ./.venv/lib/python3.9/site-packages (from -r requirements.txt (line 1)) (3.0.3)
+Requirement already satisfied: pytest==8.3.2 in ./.venv/lib/python3.9/site-packages (from -r requirements.txt (line 2)) (8.3.2)
+Requirement already satisfied: itsdangerous>=2.1.2 in ./.venv/lib/python3.9/site-packages (from Flask==3.0.3->-r requirements.txt (line 1)) (2.2.0)
+Requirement already satisfied: blinker>=1.6.2 in ./.venv/lib/python3.9/site-packages (from Flask==3.0.3->-r requirements.txt (line 1)) (1.9.0)
+Requirement already satisfied: Werkzeug>=3.0.0 in ./.venv/lib/python3.9/site-packages (from Flask==3.0.3->-r requirements.txt (line 1)) (3.1.9)
+Requirement already satisfied: importlib-metadata>=3.6.0 in ./.venv/lib/python3.9/site-packages (from Flask==3.0.3->-r requirements.txt (line 1)) (8.7.1)
+Requirement already satisfied: Jinja2>=3.1.2 in ./.venv/lib/python3.9/site-packages (from Flask==3.0.3->-r requirements.txt (line 1)) (3.1.6)
+Requirement already satisfied: click>=8.1.3 in ./.venv/lib/python3.9/site-packages (from Flask==3.0.3->-r requirements.txt (line 1)) (8.1.8)
+Requirement already satisfied: packaging in ./.venv/lib/python3.9/site-packages (from pytest==8.3.2->-r requirements.txt (line 2)) (26.3)
+Requirement already satisfied: pluggy<2,>=1.5 in ./.venv/lib/python3.9/site-packages (from pytest==8.3.2->-r requirements.txt (line 2)) (1.6.0)
+Requirement already satisfied: tomli>=1 in ./.venv/lib/python3.9/site-packages (from pytest==8.3.2->-r requirements.txt (line 2)) (2.5.0)
+Requirement already satisfied: exceptiongroup>=1.0.0rc8 in ./.venv/lib/python3.9/site-packages (from pytest==8.3.2->-r requirements.txt (line 2)) (1.3.2)
+Requirement already satisfied: iniconfig in ./.venv/lib/python3.9/site-packages (from pytest==8.3.2->-r requirements.txt (line 2)) (2.1.0)
+Requirement already satisfied: typing-extensions>=4.6.0 in ./.venv/lib/python3.9/site-packages (from exceptiongroup>=1.0.0rc8->pytest==8.3.2->-r requirements.txt (line 2)) (4.16.0)
+Requirement already satisfied: zipp>=3.20 in ./.venv/lib/python3.9/site-packages (from importlib-metadata>=3.6.0->Flask==3.0.3->-r requirements.txt (line 1)) (3.23.1)
+Requirement already satisfied: MarkupSafe>=2.0 in ./.venv/lib/python3.9/site-packages (from Jinja2>=3.1.2->Flask==3.0.3->-r requirements.txt (line 1)) (3.0.4)
+WARNING: You are using pip version 21.3.1; however, version 26.0.1 is available.
+You should consider upgrading via the '/var/lib/jenkins/workspace/ACEest Fitness and Gym - SonarQube/.venv/bin/python3 -m pip install --upgrade pip' command.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] echo
+Running ACEest Pytest suite
+[Pipeline] sh
++ .venv/bin/python -m pytest -v
+============================= test session starts ==============================
+platform linux -- Python 3.9.21, pytest-8.3.2, pluggy-1.6.0 -- /var/lib/jenkins/workspace/ACEest Fitness and Gym - SonarQube/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /var/lib/jenkins/workspace/ACEest Fitness and Gym - SonarQube
+collecting ... collected 22 items
+
+tests/test_app.py::test_home PASSED                                      [  4%]
+tests/test_app.py::test_list_programs PASSED                             [  9%]
+tests/test_app.py::test_get_valid_program PASSED                         [ 13%]
+tests/test_app.py::test_get_invalid_program PASSED                       [ 18%]
+tests/test_app.py::test_create_client PASSED                             [ 22%]
+tests/test_app.py::test_duplicate_client PASSED                          [ 27%]
+tests/test_app.py::test_invalid_client_name PASSED                       [ 31%]
+tests/test_app.py::test_invalid_client_program PASSED                    [ 36%]
+tests/test_app.py::test_invalid_client_weight PASSED                     [ 40%]
+tests/test_app.py::test_save_progress PASSED                             [ 45%]
+tests/test_app.py::test_invalid_adherence PASSED                         [ 50%]
+tests/test_app.py::test_progress_unknown_client PASSED                   [ 54%]
+tests/test_app.py::test_add_workout PASSED                               [ 59%]
+tests/test_app.py::test_invalid_workout_date PASSED                      [ 63%]
+tests/test_app.py::test_invalid_workout_duration PASSED                  [ 68%]
+tests/test_app.py::test_workout_unknown_client PASSED                    [ 72%]
+tests/test_app.py::test_update_membership PASSED                         [ 77%]
+tests/test_app.py::test_get_membership PASSED                            [ 81%]
+tests/test_app.py::test_expired_membership PASSED                        [ 86%]
+tests/test_app.py::test_invalid_membership_date PASSED                   [ 90%]
+tests/test_app.py::test_membership_unknown_client PASSED                 [ 95%]
+tests/test_app.py::test_dashboard PASSED                                 [100%]
+
+============================== 22 passed in 0.39s ==============================
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (SonarQube Analysis)
+[Pipeline] echo
+Running SonarQube analysis and enforcing the quality gate
+[Pipeline] withCredentials
+Masking supported pattern matches of $SONAR_TOKEN
+[Pipeline] {
+[Pipeline] sh
++ docker run --rm -e SONAR_HOST_URL=http://10.3.25.142:9000 -e SONAR_TOKEN=**** -v '/var/lib/jenkins/workspace/ACEest Fitness and Gym - SonarQube:/usr/src' sonarsource/sonar-scanner-cli -Dsonar.projectKey=aceest-fitness-gym '-Dsonar.projectName=ACEest Fitness & Gym' -Dsonar.sources=. '-Dsonar.exclusions=.venv/**,**/__pycache__/**,screenshots/**,static/**,templates/**' -Dsonar.qualitygate.wait=true
+Unable to find image 'sonarsource/sonar-scanner-cli:latest' locally
+latest: Pulling from sonarsource/sonar-scanner-cli
+36d0e51e1ea5: Pulling fs layer
+a2d3e70dc398: Pulling fs layer
+956050a19aa3: Pulling fs layer
+b2f9c80894dc: Pulling fs layer
+3a696a103395: Pulling fs layer
+3adf2b735ab9: Pulling fs layer
+4f4fb700ef54: Pulling fs layer
+3a696a103395: Waiting
+3adf2b735ab9: Waiting
+4f4fb700ef54: Waiting
+b2f9c80894dc: Waiting
+956050a19aa3: Verifying Checksum
+956050a19aa3: Download complete
+36d0e51e1ea5: Verifying Checksum
+36d0e51e1ea5: Download complete
+b2f9c80894dc: Verifying Checksum
+b2f9c80894dc: Download complete
+3adf2b735ab9: Verifying Checksum
+3adf2b735ab9: Download complete
+a2d3e70dc398: Verifying Checksum
+a2d3e70dc398: Download complete
+4f4fb700ef54: Verifying Checksum
+4f4fb700ef54: Download complete
+3a696a103395: Verifying Checksum
+3a696a103395: Download complete
+36d0e51e1ea5: Pull complete
+a2d3e70dc398: Pull complete
+956050a19aa3: Pull complete
+b2f9c80894dc: Pull complete
+3a696a103395: Pull complete
+3adf2b735ab9: Pull complete
+4f4fb700ef54: Pull complete
+Digest: sha256:6e6eca4d552695a98fb7dab84f0c1bd0885ebbfe272654d1552e24bd7f452d51
+Status: Downloaded newer image for sonarsource/sonar-scanner-cli:latest
+07:42:05.457 INFO  Scanner configuration file: /opt/sonar-scanner/conf/sonar-scanner.properties
+07:42:05.555 INFO  Project root configuration file: NONE
+07:42:06.141 INFO  SonarScanner CLI 8.4.0.16527
+07:42:06.151 INFO  Linux 5.14.0-503.21.1.el9_5.x86_64 amd64
+07:42:12.817 INFO  Communicating with SonarQube Community Build 26.11.0.134175
+07:42:12.819 INFO  JRE provisioning: os[linux], arch[x86_64]
+07:42:17.944 INFO  Starting SonarScanner Engine...
+07:42:17.954 INFO  Java 21.0.13 Eclipse Adoptium (64-bit)
+07:42:20.090 INFO  Load global settings
+07:42:20.504 INFO  Load global settings (done) | time=430ms
+07:42:20.511 INFO  Server id: 147B411E-AaIHJqwSrmQRHuAZvyv3
+07:42:21.198 INFO  Loading required plugins
+07:42:21.201 INFO  Load plugins index
+07:42:21.433 INFO  Load plugins index (done) | time=227ms
+07:42:21.436 INFO  Load/download plugins
+07:42:22.362 INFO  Load/download plugins (done) | time=928ms
+07:42:23.034 INFO  Load project settings for component key: 'aceest-fitness-gym'
+07:42:23.130 INFO  Load project settings for component key: 'aceest-fitness-gym' (done) | time=95ms
+07:42:23.187 INFO  Process project properties
+07:42:23.238 INFO  Process project properties (done) | time=50ms
+07:42:23.272 INFO  Project key: aceest-fitness-gym
+07:42:23.273 INFO  Base dir: /usr/src
+07:42:23.274 INFO  Working dir: /tmp/.scannerwork
+07:42:23.673 INFO  Load quality profiles
+07:42:23.849 INFO  Load quality profiles (done) | time=176ms
+07:42:23.903 INFO  Load active rules
+07:42:24.963 INFO  Load active rules (done) | time=1060ms
+07:42:24.977 INFO  Load analysis cache
+07:42:25.007 INFO  Load analysis cache (404) | time=28ms
+07:42:25.264 INFO  Preprocessing files...
+07:42:25.723 INFO  3 languages detected in 23 preprocessed files (done) | time=458ms
+07:42:25.733 INFO  0 files ignored because of inclusion/exclusion patterns
+07:42:25.735 INFO  6 directories skipped because of exclusion patterns (content not counted)
+07:42:25.736 INFO  37 files ignored because of scm ignore settings
+07:42:25.741 INFO  Loading plugins for detected languages
+07:42:25.742 INFO  Load/download plugins
+07:42:27.685 INFO  Load/download plugins (done) | time=1943ms
+07:42:28.256 INFO  Load project repositories
+07:42:28.473 INFO  Load project repositories (done) | time=216ms
+07:42:28.527 INFO  Indexing files...
+07:42:28.529 INFO  Project configuration:
+07:42:28.530 INFO    Excluded sources: .venv/**, **/__pycache__/**, screenshots/**, static/**, templates/**
+07:42:28.566 INFO  23 files indexed (done) | time=38ms
+07:42:28.569 INFO  Quality profile for docker: Sonar way core
+07:42:28.570 INFO  Quality profile for py: Sonar way core
+07:42:28.575 INFO  Quality profile for yaml: Sonar way comprehensive
+07:42:28.576 INFO  ------------- Run sensors on module ACEest Fitness & Gym
+07:42:28.647 INFO  Load metrics repository
+07:42:28.725 INFO  Load metrics repository (done) | time=70ms
+07:42:30.080 INFO  Sensor IaC YAML File Type Classification Sensor [iac]
+07:42:30.097 INFO  Sensor IaC YAML File Type Classification Sensor [iac] (done) | time=16ms
+07:42:30.098 INFO  Sensor IaC CloudFormation Sensor [iac]
+07:42:30.100 INFO  There are no files to be analyzed for the CloudFormation language
+07:42:30.101 INFO  Sensor IaC CloudFormation Sensor [iac] (done) | time=2ms
+07:42:30.102 INFO  Sensor IaC cfn-lint report Sensor [iac]
+07:42:30.103 INFO  Sensor IaC cfn-lint report Sensor [iac] (done) | time=1ms
+07:42:30.104 INFO  Sensor IaC Kustomization Sensor [iac]
+07:42:30.106 INFO  Sensor IaC Kustomization Sensor [iac] (done) | time=1ms
+07:42:30.107 INFO  Sensor IaC hadolint report Sensor [iac]
+07:42:30.108 INFO  Sensor IaC hadolint report Sensor [iac] (done) | time=0ms
+07:42:30.109 INFO  Sensor Java Config Sensor [iac]
+07:42:30.110 INFO  There are no files to be analyzed for the Java language
+07:42:30.110 INFO  Sensor Java Config Sensor [iac] (done) | time=1ms
+07:42:30.111 INFO  Sensor IaC Docker Sensor [iac]
+07:42:30.316 INFO  1 source file to be analyzed
+07:42:30.506 INFO  1/1 source file has been analyzed
+07:42:30.507 INFO  Sensor IaC Docker Sensor [iac] (done) | time=394ms
+07:42:30.511 INFO  Sensor Python Sensor [python]
+07:42:30.516 WARN  Your code is analyzed as compatible with Python versions 3.10 through 3.14 by default. You can get a more precise analysis by setting the Python version or version range in your configuration via the parameter "sonar.python.version"
+07:42:31.509 INFO  Starting global symbols computation
+07:42:31.516 INFO  3 source files to be analyzed
+07:42:32.395 INFO  3/3 source files have been analyzed
+07:42:32.400 INFO  Finished step global symbols computation in 884ms
+07:42:32.464 INFO  Starting rules execution
+07:42:32.468 INFO  3 source files to be analyzed
+07:42:32.565 WARN  Test files were detected using a path heuristic because "sonar.tests" is not set. To improve the analysis accuracy, it is recommended to configure it, e.g.: "sonar.tests=src/test".
+07:42:34.534 INFO  3/3 source files have been analyzed
+07:42:34.538 INFO  Finished step rules execution in 2069ms
+07:42:34.540 INFO  The Python analyzer was able to leverage cached data from previous analyses for 0 out of 3 files. These files were not parsed.
+07:42:34.548 INFO  Sensor Python Sensor [python] (done) | time=4041ms
+07:42:34.560 INFO  Sensor Cobertura Sensor for Python coverage [python]
+07:42:34.665 INFO  Sensor Cobertura Sensor for Python coverage [python] (done) | time=105ms
+07:42:34.666 INFO  Sensor PythonXUnitSensor [python]
+07:42:34.746 INFO  Sensor PythonXUnitSensor [python] (done) | time=78ms
+07:42:34.747 INFO  Sensor Python Dependency Sensor [python]
+07:42:34.760 INFO  Sensor Python Dependency Sensor [python] (done) | time=11ms
+07:42:34.763 INFO  Sensor IaC Kubernetes Sensor [iac]
+07:42:34.887 INFO  There are no files to be analyzed for the Kubernetes language
+07:42:34.891 INFO  Sensor IaC Kubernetes Sensor [iac] (done) | time=128ms
+07:42:34.893 INFO  Sensor TextAndSecretsSensor [text]
+07:42:35.331 INFO  Available processors: 2
+07:42:35.332 INFO  Using 2 threads for analysis.
+07:42:36.472 INFO  The property "sonar.tests" is not set. To improve the analysis accuracy, we categorize a file as a test file if any of the following is true:
+  * The filename starts with "test"
+  * The filename contains "test." or "tests."
+  * Any directory in the file path is named: "doc", "docs", "test", "tests", "mock" or "mocks"
+  * Any directory in the file path has a name ending in "test" or "tests"
+
+07:42:36.638 INFO  Start fetching files for the text and secrets analysis
+07:42:36.660 INFO  Using Git CLI to retrieve dirty files
+07:42:36.672 WARN  Retrieving only language associated files, make sure to run the analysis inside a git repository to make use of inclusions specified via "sonar.text.inclusions"
+07:42:36.675 INFO  Starting the text and secrets analysis
+07:42:36.685 INFO  5 source files to be analyzed for the text and secrets analysis
+07:42:36.731 INFO  5/5 source files have been analyzed for the text and secrets analysis
+07:42:36.733 INFO  Skipped 2 file(s) in the secrets analysis due to automatic test file detection
+07:42:36.736 INFO  Sensor TextAndSecretsSensor [text] (done) | time=1842ms
+07:42:36.910 INFO  ------------- Run sensors on project
+07:42:37.669 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript]
+07:42:37.678 INFO  No input files found for analysis
+07:42:37.680 INFO  Hit the cache for 0 out of 0
+07:42:37.682 INFO  Miss the cache for 0 out of 0
+07:42:37.683 INFO  Sensor JavaScript/TypeScript/CSS analysis [javascript] (done) | time=14ms
+07:42:37.685 INFO  Sensor IaC Project Sensor [iac]
+07:42:37.690 INFO  Sensor IaC Project Sensor [iac] (done) | time=4ms
+07:42:37.691 INFO  Sensor Zero Coverage Sensor
+07:42:37.712 INFO  Sensor Zero Coverage Sensor (done) | time=21ms
+07:42:37.714 INFO  ------------- Gather SCA dependencies on project
+07:42:37.733 INFO  Dependency analysis skipped
+07:42:37.739 INFO  SCM Publisher SCM provider for this project is: git
+07:42:37.743 INFO  SCM Publisher 3 source files to be analyzed
+07:42:38.538 INFO  SCM Publisher 3/3 source files have been analyzed (done) | time=794ms
+07:42:38.552 INFO  CPD Executor 1 file had no CPD blocks
+07:42:38.554 INFO  CPD Executor Calculating CPD for 2 files
+07:42:38.575 INFO  CPD Executor CPD calculation finished (done) | time=21ms
+07:42:38.590 INFO  SCM revision ID 'dd3af72a8539c48a4477cf8e0af05a5a0d1b5671'
+07:42:39.104 INFO  Analysis report generated in 221ms, dir size=197.6 kB
+07:42:39.329 INFO  Analysis report compressed in 225ms, zip size=48.4 kB
+07:42:39.453 INFO  Analysis report uploaded in 124ms
+07:42:39.458 INFO  ------------- Check Quality Gate status
+07:42:39.460 INFO  Waiting for the analysis report to be processed (max 300s)
+07:42:49.614 INFO  QUALITY GATE STATUS: PASSED - View details on http://10.3.25.142:9000/dashboard?id=aceest-fitness-gym
+07:42:49.798 INFO  Analysis total time: 31.743 s
+07:42:49.805 INFO  SonarScanner Engine completed successfully
+07:42:50.076 INFO  EXECUTION SUCCESS
+07:42:50.077 INFO  Total time: 44.627s
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Code Inspection)
+[Pipeline] echo
+Checking Python syntax
+[Pipeline] sh
++ .venv/bin/python -m compileall -q app.py tests
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker Build)
+[Pipeline] echo
+Building ACEest Docker image
+[Pipeline] sh
++ docker build -t aceest-fitness-gym:latest .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 334B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.9-slim
+#2 DONE 1.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 144B done
+#3 DONE 0.0s
+
+#4 [1/8] FROM docker.io/library/python:3.9-slim@sha256:2d97f6910b16bd338d3060f261f53f144965f755599aab1acda1e13cf1731b1b
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 1.21kB done
+#5 DONE 0.0s
+
+#6 [2/8] WORKDIR /app
+#6 CACHED
+
+#7 [5/8] COPY app.py .
+#7 CACHED
+
+#8 [7/8] COPY templates/ ./templates/
+#8 CACHED
+
+#9 [3/8] COPY requirements.txt .
+#9 CACHED
+
+#10 [6/8] COPY tests/ ./tests/
+#10 CACHED
+
+#11 [4/8] RUN pip install --no-cache-dir -r requirements.txt
+#11 CACHED
+
+#12 [8/8] COPY static/ ./static/
+#12 CACHED
+
+#13 exporting to image
+#13 exporting layers done
+#13 writing image sha256:fa19d193782c85be4721337868ab064e4a0c85095768814100119fd8269c3551 done
+#13 naming to docker.io/library/aceest-fitness-gym:latest done
+#13 DONE 0.0s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Docker Test)
+[Pipeline] echo
+Running Pytest inside Docker
+[Pipeline] sh
++ docker run --rm aceest-fitness-gym:latest python -m pytest -v
+============================= test session starts ==============================
+platform linux -- Python 3.9.25, pytest-8.3.2, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /app
+collecting ... collected 22 items
+
+tests/test_app.py::test_home PASSED                                      [  4%]
+tests/test_app.py::test_list_programs PASSED                             [  9%]
+tests/test_app.py::test_get_valid_program PASSED                         [ 13%]
+tests/test_app.py::test_get_invalid_program PASSED                       [ 18%]
+tests/test_app.py::test_create_client PASSED                             [ 22%]
+tests/test_app.py::test_duplicate_client PASSED                          [ 27%]
+tests/test_app.py::test_invalid_client_name PASSED                       [ 31%]
+tests/test_app.py::test_invalid_client_program PASSED                    [ 36%]
+tests/test_app.py::test_invalid_client_weight PASSED                     [ 40%]
+tests/test_app.py::test_save_progress PASSED                             [ 45%]
+tests/test_app.py::test_invalid_adherence PASSED                         [ 50%]
+tests/test_app.py::test_progress_unknown_client PASSED                   [ 54%]
+tests/test_app.py::test_add_workout PASSED                               [ 59%]
+tests/test_app.py::test_invalid_workout_date PASSED                      [ 63%]
+tests/test_app.py::test_invalid_workout_duration PASSED                  [ 68%]
+tests/test_app.py::test_workout_unknown_client PASSED                    [ 72%]
+tests/test_app.py::test_update_membership PASSED                         [ 77%]
+tests/test_app.py::test_get_membership PASSED                            [ 81%]
+tests/test_app.py::test_expired_membership PASSED                        [ 86%]
+tests/test_app.py::test_invalid_membership_date PASSED                   [ 90%]
+tests/test_app.py::test_membership_unknown_client PASSED                 [ 95%]
+tests/test_app.py::test_dashboard PASSED                                 [100%]
+
+============================== 22 passed in 1.09s ==============================
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+ACEest pipeline completed successfully!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
