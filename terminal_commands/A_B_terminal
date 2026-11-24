@@ -1,0 +1,96 @@
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ kubectl apply -f k8s/service-ab.yaml
+minikube service aceest-a --url
+minikube service aceest-b --url
+service/aceest-a unchanged
+service/aceest-b unchanged
+http://192.168.49.2:30081
+http://192.168.49.2:30082
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ for i in $(seq 1 20); do curl -s -o /dev/null -w "A %{http_code} %{time_total}\n" $(minikube service aceest-a --url); done
+for i in $(seq 1 20); do curl -s -o /dev/null -w "B %{http_code} %{time_total}\n" $(minikube service aceest-b --url); done
+A 200 0.002243
+A 200 0.002070
+A 200 0.002029
+A 200 0.002221
+A 200 0.002131
+A 200 0.001947
+A 200 0.002122
+A 200 0.001965
+A 200 0.002046
+A 200 0.002063
+A 200 0.002092
+A 200 0.002475
+A 200 0.002061
+A 200 0.002018
+A 200 0.002913
+A 200 0.002002
+A 200 0.001966
+A 200 0.001988
+A 200 0.002258
+A 200 0.003612
+B 200 0.002836
+B 200 0.002969
+B 200 0.002293
+B 200 0.002037
+B 200 0.002210
+B 200 0.002084
+B 200 0.002155
+B 200 0.002636
+B 200 0.002206
+B 200 0.002257
+B 200 0.002321
+B 200 0.002111
+B 200 0.002565
+B 200 0.002103
+B 200 0.002145
+B 200 0.002201
+B 200 0.002197
+B 200 0.002354
+B 200 0.002266
+B 200 0.002223
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ V1=$(minikube service aceest-a --url)
+V2=$(minikube service aceest-b --url)
+for i in $(seq 1 20); do
+  curl -s -o /dev/null -w "served v1 %{http_code} %{time_total}\n" "$V1/"
+  curl -s -o /dev/null -w "shadow v2 %{http_code} %{time_total}\n" "$V2/"
+done
+served v1 200 0.002004
+shadow v2 200 0.002215
+served v1 200 0.002161
+shadow v2 200 0.002219
+served v1 200 0.002683
+shadow v2 200 0.003073
+served v1 200 0.002751
+shadow v2 200 0.003223
+served v1 200 0.002402
+shadow v2 200 0.002297
+served v1 200 0.005584
+shadow v2 200 0.002183
+served v1 200 0.006116
+shadow v2 200 0.002425
+served v1 200 0.002123
+shadow v2 200 0.002387
+served v1 200 0.007866
+shadow v2 200 0.002689
+served v1 200 0.005306
+shadow v2 200 0.002812
+served v1 200 0.002520
+shadow v2 200 0.003876
+served v1 200 0.002526
+shadow v2 200 0.002332
+served v1 200 0.003343
+shadow v2 200 0.002101
+served v1 200 0.002002
+shadow v2 200 0.002978
+served v1 200 0.002461
+shadow v2 200 0.003100
+served v1 200 0.002487
+shadow v2 200 0.003199
+served v1 200 0.002874
+shadow v2 200 0.002656
+served v1 200 0.003982
+shadow v2 200 0.003354
+served v1 200 0.002509
+shadow v2 200 0.002216
+served v1 200 0.002031
+shadow v2 200 0.002929
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ 

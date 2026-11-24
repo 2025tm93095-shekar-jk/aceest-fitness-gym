@@ -1,0 +1,49 @@
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ URL=$(minikube service aceest --url)
+for i in $(seq 1 40); do curl -s -o /dev/null -w "%{http_code}\n" "$URL/"; sleep 1; done > rolling-check.txt &
+[1] 16186
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ kubectl patch deployment aceest-v1 -p '{"spec":{"strategy":{"type":"RollingUpdate","rollingUpdate":{"maxSurge":1,"maxUnavailable":0}}}}'
+kubectl set image deployment/aceest-v1 aceest=s2025tm93095/aceest-fitness-gym:v2.0.0
+kubectl rollout status deployment/aceest-v1
+kubectl get pods -l app=aceest,version=v1 -o wide
+deployment.apps/aceest-v1 patched
+deployment.apps/aceest-v1 image updated
+Waiting for deployment "aceest-v1" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "aceest-v1" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "aceest-v1" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "aceest-v1" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "aceest-v1" rollout to finish: 1 old replicas are pending termination...
+deployment "aceest-v1" successfully rolled out
+NAME                         READY   STATUS        RESTARTS   AGE   IP            NODE       NOMINATED NODE   READINESS GATES
+aceest-v1-7bd4bd55d-6vj75    1/1     Terminating   0          12m   10.244.0.5    minikube   <none>           <none>
+aceest-v1-7bd4bd55d-lj96c    1/1     Terminating   0          12m   10.244.0.6    minikube   <none>           <none>
+aceest-v1-84f64d8c79-7v8zv   1/1     Running       0          1s    10.244.0.11   minikube   <none>           <none>
+aceest-v1-84f64d8c79-bkfxb   1/1     Running       0          2s    10.244.0.10   minikube   <none>           <none>
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ sort rolling-check.txt | uniq -c
+     16 200
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ kubectl rollout history deployment/aceest-v1
+kubectl rollout undo deployment/aceest-v1
+kubectl rollout status deployment/aceest-v1
+kubectl get deployment aceest-v1 -o jsonpath='{.spec.template.spec.containers[0].image}'; echo
+curl -I $(minikube service aceest --url)
+deployment.apps/aceest-v1 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+
+Warning: resource deployments/aceest-v1 was previously managed with 'kubectl apply'. Rolling back will not update the kubectl.kubernetes.io/last-applied-configuration annotation, which may cause unexpected behavior on future 'kubectl apply' operations. Consider using 'kubectl apply' with your previous configuration file instead.
+deployment.apps/aceest-v1 rolled back
+Waiting for deployment "aceest-v1" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "aceest-v1" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "aceest-v1" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "aceest-v1" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "aceest-v1" rollout to finish: 1 old replicas are pending termination...
+deployment "aceest-v1" successfully rolled out
+s2025tm93095/aceest-fitness-gym:v1.0.0
+HTTP/1.1 200 OK
+Server: Werkzeug/3.1.9 Python/3.9.25
+Date: Tue, 24 Nov 2026 07:08:22 GMT
+Content-Type: application/json
+Content-Length: 46
+Connection: close
+
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ 

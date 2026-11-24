@@ -1,0 +1,39 @@
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ kubectl patch service aceest -p '{"spec":{"selector":{"version":null}}}'
+kubectl scale deployment aceest-v1 --replicas=3
+kubectl scale deployment aceest-v2 --replicas=1
+kubectl get pods -l app=aceest -o wide
+kubectl get endpoints aceest
+service/aceest patched
+deployment.apps/aceest-v1 scaled
+deployment.apps/aceest-v2 scaled
+NAME                         READY   STATUS              RESTARTS   AGE     IP           NODE       NOMINATED NODE   READINESS GATES
+aceest-v1-7bd4bd55d-6vj75    1/1     Running             0          4m51s   10.244.0.5   minikube   <none>           <none>
+aceest-v1-7bd4bd55d-fpg5v    0/1     ContainerCreating   0          0s      <none>       minikube   <none>           <none>
+aceest-v1-7bd4bd55d-lj96c    1/1     Running             0          4m51s   10.244.0.6   minikube   <none>           <none>
+aceest-v2-767b55d454-dqtmc   1/1     Running             0          6m13s   10.244.0.3   minikube   <none>           <none>
+aceest-v2-767b55d454-ptw7n   1/1     Terminating         0          6m13s   10.244.0.4   minikube   <none>           <none>
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME     ENDPOINTS                                         AGE
+aceest   10.244.0.3:5000,10.244.0.5:5000,10.244.0.6:5000   4m50s
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ for i in $(seq 1 10); do curl -s -o /dev/null -w "%{http_code}\n" $(minikube service aceest --url); done
+200
+200
+200
+200
+200
+200
+200
+200
+200
+200
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ kubectl patch service aceest -p '{"spec":{"selector":{"app":"aceest","version":"v1"}}}'
+kubectl scale deployment aceest-v1 --replicas=2
+kubectl scale deployment aceest-v2 --replicas=0
+kubectl get endpoints aceest
+service/aceest patched
+deployment.apps/aceest-v1 scaled
+deployment.apps/aceest-v2 scaled
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME     ENDPOINTS                         AGE
+aceest   10.244.0.5:5000,10.244.0.6:5000   5m29s
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ 

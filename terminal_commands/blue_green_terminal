@@ -1,0 +1,75 @@
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ kubectl apply -f k8s/deployment-v1.yaml
+kubectl apply -f k8s/service.yaml
+kubectl apply -f k8s/deployment-v2.yaml
+kubectl get pods
+minikube service aceest --url
+deployment.apps/aceest-v1 created
+service/aceest created
+deployment.apps/aceest-v2 unchanged
+NAME                         READY   STATUS              RESTARTS   AGE
+aceest-v1-7bd4bd55d-6vj75    0/1     ContainerCreating   0          1s
+aceest-v1-7bd4bd55d-lj96c    0/1     ContainerCreating   0          1s
+aceest-v2-767b55d454-dqtmc   1/1     Running             0          83s
+aceest-v2-767b55d454-ptw7n   1/1     Running             0          83s
+http://192.168.49.2:30080
+
+❌  Exiting due to SVC_UNREACHABLE: service not available: no running pod for service aceest found
+
+╭───────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                           │
+│    😿  If the above advice does not help, please let us know:                             │
+│    👉  https://github.com/kubernetes/minikube/issues/new/choose                           │
+│                                                                                           │
+│    Please run `minikube logs --file=logs.txt` and attach logs.txt to the GitHub issue.    │
+│    Please also attach the following file to the GitHub issue:                             │
+│    - /tmp/minikube_service_0b4c2fbd8c5a97bbec9f2801c2fa8e0bea5b2a06_0.log                 │
+│                                                                                           │
+╰───────────────────────────────────────────────────────────────────────────────────────────╯
+
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ kubectl get pods -w
+NAME                         READY   STATUS    RESTARTS   AGE
+aceest-v1-7bd4bd55d-6vj75    1/1     Running   0          27s
+aceest-v1-7bd4bd55d-lj96c    1/1     Running   0          27s
+aceest-v2-767b55d454-dqtmc   1/1     Running   0          109s
+aceest-v2-767b55d454-ptw7n   1/1     Running   0          109s
+^C[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]minikube service aceest --urlrl
+curl -I $(minikube service aceest --url)
+http://192.168.49.2:30080
+HTTP/1.1 200 OK
+Server: Werkzeug/3.1.9 Python/3.9.25
+Date: Tue, 24 Nov 2026 06:56:38 GMT
+Content-Type: application/json
+Content-Length: 46
+Connection: close
+
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ kubectl get endpoints aceest
+kubectl get pods -o wide
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME     ENDPOINTS                         AGE
+aceest   10.244.0.5:5000,10.244.0.6:5000   60s
+NAME                         READY   STATUS    RESTARTS   AGE     IP           NODE       NOMINATED NODE   READINESS GATES
+aceest-v1-7bd4bd55d-6vj75    1/1     Running   0          61s     10.244.0.5   minikube   <none>           <none>
+aceest-v1-7bd4bd55d-lj96c    1/1     Running   0          61s     10.244.0.6   minikube   <none>           <none>
+aceest-v2-767b55d454-dqtmc   1/1     Running   0          2m23s   10.244.0.3   minikube   <none>           <none>
+aceest-v2-767b55d454-ptw7n   1/1     Running   0          2m23s   10.244.0.4   minikube   <none>           <none>
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ kubectl patch service aceest -p '{"spec":{"selector":{"app":"aceest","version":"v2"}}}'
+kubectl get endpoints aceest
+curl -I $(minikube service aceest --url)
+service/aceest patched
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME     ENDPOINTS                         AGE
+aceest   10.244.0.3:5000,10.244.0.4:5000   79s
+HTTP/1.1 200 OK
+Server: Werkzeug/3.1.9 Python/3.9.25
+Date: Tue, 24 Nov 2026 06:57:20 GMT
+Content-Type: application/json
+Content-Length: 46
+Connection: close
+
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ kubectl patch service aceest -p '{"spec":{"selector":{"app":"aceest","version":"v1"}}}'
+kubectl get endpoints aceest
+service/aceest patched
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME     ENDPOINTS                         AGE
+aceest   10.244.0.5:5000,10.244.0.6:5000   90s
+[s2025tm93095@ip-10-3-24-11 aceest-fitness-gym]$ 
